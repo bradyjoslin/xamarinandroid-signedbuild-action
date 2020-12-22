@@ -1,0 +1,44 @@
+name: 'Xamarin.Android Signed Build'
+description: 'Build and Sign Xamarin.Android Project'
+inputs:
+  csproj_path:
+    description: 'Path to csproj file'
+    required: true
+  signing_keystore:
+    description: 'Base64 representation of the keystore'
+    required: true
+  keystore_password:
+    description: 'Keystore password'
+    required: true
+  signing_key_alias:
+    description: 'Signing key alias'
+    required: true
+  signing_key_password:
+    description: 'Signing key password'
+    required: true
+  configuration:
+    description: 'Build configuration'
+    required: false
+    default: 'Release'
+  mono_version:
+    description: 'Version of mono to use for build'
+    required: false
+    default: 'stable'
+  xamarin_android_version:
+    description: 'Version of Xamarin.Android to use for build'
+    required: false
+    default: 'stable'
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/build-android.sh
+      env:
+          CSPROJ_PATH: ${{ github.workspace }}/${{ inputs.csproj_path }}
+          SIGNING_KEY: ${{ inputs.signing_keystore }}
+          KEY_STORE_PASSWORD: ${{ inputs.keystore_password }}
+          ALIAS: ${{ inputs.signing_key_alias }}
+          SIGNING_KEY_PASS: ${{ inputs.signing_key_password }}
+          CONFIGURATION: ${{ inputs.configuration }}
+          MONO_VERSION: ${{ inputs.mono_version }}
+          XAMARIN_ANDROID_VERSION: ${{ inputs.xamarin_android_version }}
+      shell: bash
