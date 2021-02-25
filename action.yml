@@ -1,5 +1,8 @@
 name: 'Xamarin.Android Signed Build'
 description: 'Build and Sign Xamarin.Android Project'
+branding:
+  icon: 'activity'
+  color: 'white'
 inputs:
   csproj_path:
     description: 'Path to csproj file'
